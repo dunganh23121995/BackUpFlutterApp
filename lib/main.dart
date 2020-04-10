@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/sqlite_api.dart';
 import 'package:testappflutter/app_theme.dart';
-import 'package:testappflutter/database/my_sqlite.dart';
 import 'package:testappflutter/navigation_home_screen.dart';
 
 
