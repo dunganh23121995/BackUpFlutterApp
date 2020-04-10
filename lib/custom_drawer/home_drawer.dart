@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:testappflutter/app_theme.dart';
+import 'package:testappflutter/login_page/loginPage.dart';
 class HomeDrawer extends StatefulWidget {
   const HomeDrawer(
       {Key key,
@@ -33,12 +34,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
       ),
       DrawerList(
         index: DrawerIndex.Help,
-        labelName: 'Help',
+        labelName: 'Trợ giúp',
         icon: Icon(Icons.help)
       ),
       DrawerList(
         index: DrawerIndex.FeedBack,
-        labelName: 'FeedBack',
+        labelName: 'Phản Hồi',
         icon: Icon(Icons.feedback),
       ),
 //      DrawerList(
@@ -48,12 +49,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
 //      ),
       DrawerList(
         index: DrawerIndex.Share,
-        labelName: 'Rate the app',
+        labelName: 'Rate ứng dụng',
         icon: Icon(Icons.share),
       ),
       DrawerList(
         index: DrawerIndex.About,
-        labelName: 'About Us',
+        labelName: 'Thông tin thêm',
         icon: Icon(Icons.info),
       ),
     ];
@@ -141,7 +142,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
             children: <Widget>[
               ListTile(
                 title: Text(
-                  'Sign Out',
+                  'Đăng nhập',
                   style: TextStyle(
                     fontFamily: AppTheme.fontName,
                     fontWeight: FontWeight.w600,
@@ -151,10 +152,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   textAlign: TextAlign.left,
                 ),
                 trailing: Icon(
-                  Icons.power_settings_new,
-                  color: Colors.red,
+                  Icons.assignment_ind,
+                  color: Colors.green,
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context,new MaterialPageRoute(builder: (context)=>LoginPage()));
+                },
               ),
               SizedBox(
                 height: MediaQuery.of(context).padding.bottom,

@@ -4,7 +4,6 @@ import 'package:testappflutter/package_quest_UI/Question.dart';
 class Quest {
   String contentQuest,result_contentA,result_contentB,result_contentC,result_contentD;
   int numberquest,resultSuccess;
-
   Quest({this.contentQuest, this.result_contentA, this.result_contentB,
       this.result_contentC, this.result_contentD, this.numberquest,
       this.resultSuccess});

@@ -1,0 +1,27 @@
+
+List<String> list_query_create_table = [
+  "CREATE TABLE TBL_PLC(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLR_KSXD(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLR_TKQHXD(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLR_TKXD(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLR_GSTCXD(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLR_DGXD(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLR_QLDADTXD(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_KSDH(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_KSDCCT(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_TKQHXD(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_TKKTCT(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_TKKCCTDDCN(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_TKCDCT(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_TKCTNCT(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_TKXDCTGT(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_TKXDCTNNPTNT(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_TKXDCTHTKT(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_GSCTDDCBHTKT(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_GSCTGT(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_GSCTNNPTNT(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_GSLDTBVCT(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_DGXD(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_PLCM_QLDADTXD(id INTEGER PRIMARY KEY, numberquest INTERGER, contentquest TEXT, contentresultA TEXT,contentresultB TEXT,contentresultC TEXT,contentresultD TEXT, result interger)",
+  "CREATE TABLE TBL_ACHIEVEMENT(id INTEGER PRIMARY KEY,  )"
+];

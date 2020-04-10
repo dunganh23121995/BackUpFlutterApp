@@ -5,6 +5,8 @@ List<String> listStringDialog_PRAC=["SÁT HẠCH CẤP MỚI","Ôn tập: \n \t~
                                     "SÁT HẠCH MIỄN CHUYÊN MÔN","Ôn tập: \n \t~Pháp luật chung.\n \t~Pháp luật riêng."];
 List<String> listStringDialog_EXAM=["SÁT HẠCH CẤP MỚI","Đề thi gồm: 25câu / 30phút \n\t ~3 câu pháp luật chung.\n\t ~2 câu pháp luật riêng.\n\t ~20 câu pháp luật chuyên môn",
                                     "SÁT HẠCH CHUYÊN MÔN","Đề thi gồm: 10câu / 12phút\n\t ~5 câu pháp luật chung.\n\t ~5 câu pháp luật riêng."];
+
+
 class InforNavOfPratice{
   InforNavOfPratice({this.namebutton,this.typepractice});
 

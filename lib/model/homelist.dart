@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:testappflutter/Pages/clock.dart';
 import 'package:testappflutter/Practice/practice_page.dart';
+import 'package:testappflutter/achievement_page/result_page.dart';
 import 'package:testappflutter/home_screen.dart';
 
 class HomeList {
@@ -30,7 +31,7 @@ class HomeList {
     ),
     HomeList(
       imagePath: 'assets/images/result.png',
-      navigateScreen: MyHomePage(),
+      navigateScreen: ResultExamPage(),
         titleHomelist: "KẾT QUẢ",
       backgroundColor: Color(0xffe1f5fe),
     ),
