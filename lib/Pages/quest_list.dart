@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+enum Result { A, B, C, D, nullrs }
 List<BottomNavigationBarItem> list_bottomnavbar = <BottomNavigationBarItem>[
   BottomNavigationBarItem(
-    icon: Icon(Icons.people),
-    title: Text("Chung"),
+    icon: Icon(Icons.bubble_chart),
+    title: Text("Chuyên Môn"),
     backgroundColor: Colors.black,
   ),
   BottomNavigationBarItem(
@@ -13,8 +13,8 @@ List<BottomNavigationBarItem> list_bottomnavbar = <BottomNavigationBarItem>[
     backgroundColor: Colors.black,
   ),
   BottomNavigationBarItem(
-      icon: Icon(Icons.bubble_chart),
-      title: Text("Chuyên Môn"),
+    icon: Icon(Icons.people),
+    title: Text("Chung"),
     backgroundColor: Colors.black,
   ),
 ];

@@ -11,7 +11,7 @@ class Achievement{
   int result_fail;
   int resullt_null;
   bool is_pass_exam;
-  Achievement({DateTime timeend_exam, String title_specialize="Tên Chuyên Môn", String type_exammination="Loại Thi",int result_success=10, int result_fail=3, int resullt_null=2, bool is_passexam=true}){
+  Achievement({DateTime timeend_exam, String title_specialize="Tên Chuyên Môn", String type_exammination="Loại Thi",int result_success=0, int result_fail=0, int resullt_null=0, bool is_passexam=true}){
     timeend_exam==null?timeend_exam=DateTime.now():this.timeend_exam=timeend_exam;
     this.title_specialize=title_specialize;
     this.type_exammination=type_exammination;

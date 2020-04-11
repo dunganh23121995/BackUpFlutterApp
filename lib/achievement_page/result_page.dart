@@ -28,8 +28,8 @@ class _ResultExamPage extends State<ResultExamPage>{
   }
   Widget _an_achievement({Achievement achievement}){
     int _sum = achievement.resullt_null+achievement.result_fail+achievement.result_success;
-    width_a_part = (MediaQuery.of(context).size.width)/(_sum);
-    int _result_success = (achievement.result_success*100/_sum).toInt();
+    width_a_part =  (_sum!=0)?(MediaQuery.of(context).size.width)/(_sum):0;
+    int _result_success = (_sum!=0)?(achievement.result_success*100/_sum).toInt():0;
     return  Container(
       margin: EdgeInsets.only(bottom: 10.0,top: 10.0),
       padding: EdgeInsets.fromLTRB(8,8,8,8),
@@ -97,7 +97,7 @@ class _ResultExamPage extends State<ResultExamPage>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    list_ach.add(Achievement(is_passexam: true));
+    list_ach.add(Achievement(is_passexam: true,result_success: 3,result_fail: 2,resullt_null: 1));
     list_ach.add(Achievement(is_passexam: false));
     list_ach.add(Achievement(is_passexam: true));
     list_ach.add(Achievement(is_passexam: true));

@@ -6,16 +6,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:testappflutter/Practice/group_field.dart';
 import 'package:testappflutter/app_theme.dart';
 import 'package:testappflutter/Pages/quest_list.dart';
-import 'package:testappflutter/package_quest_UI/Question.dart';
+import 'package:testappflutter/database/questDB.dart';
 import 'package:toast/toast.dart';
 
 class ShowQuest extends StatefulWidget{
-
-  ShowQuest({@required this.type_prac_or_exam,@required this.typepractice,@required this.type_examination});
+  ShowQuest({@required this.type_prac_or_exam,@required this.typepractice,@required this.type_examination}){
+  }
   TYPE_PRAC_OR_EXAM type_prac_or_exam;
   TYPEPRACTICE typepractice;
   TYPE_EXAMINATION type_examination;
-
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -26,17 +25,225 @@ class ShowQuest extends StatefulWidget{
 
 
 class SubShowQuest extends State<ShowQuest> with SingleTickerProviderStateMixin{
-
-  SubShowQuest({this.typepractice,this.type_prac_or_exam, this.type_examination});
   Timer _timer;
-  int hourtime=88,minutestime=88,secondstime=88,total_time,daytime,mounthtime,yeartime,bottom_nav_index,count_quest_list,number_quest_now;
-  DateTime endDateTime,tmpDateTime;
+  int hourtime=88,minutestime=88,secondstime=88,bottom_nav_index,_number_quest_now;
+  DateTime endDateTime;
   Duration tmpDuration;
   TYPE_PRAC_OR_EXAM type_prac_or_exam;
   TYPEPRACTICE typepractice;
   TYPE_EXAMINATION type_examination;
   static bool endTimeExam=false;
   AnimationController _hide;
+  static const double _borderRadius = 15.0, _paddingQuest = 10.0, _marginall = 8.0, _paddingResult=2.0;
+  static List<Quest> list_quest_exam,list_quest_all,list_quest_subject,list_quest_achievement;
+  static List<Quest> list_control;
+  static Quest _quest_current;
+
+  SubShowQuest({this.typepractice,this.type_prac_or_exam, this.type_examination}){
+    _number_quest_now=0;
+
+    //list get data for us
+    list_quest_exam= new List();
+    list_quest_all= new List();
+    list_quest_subject= new List();
+    list_quest_achievement= new List();
+    _quest_current=new Quest();
+
+  }
+  Widget display_quest(){
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 110,),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.all(_marginall),
+              padding: EdgeInsets.all(_paddingQuest),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black38.withOpacity(0.75),
+                      spreadRadius: 0.25,
+                      offset: Offset(2.0, 3.0))
+                ],
+                borderRadius:
+                BorderRadius.all(const Radius.circular(_borderRadius)),
+                color: Colors.white.withOpacity(1.0),
+              ),
+              child: Text("Câu ${_number_quest_now}: ${_quest_current.contentQuest}"),
+            ),//Quest
+            aChoose(Result.A, _quest_current.result_contentA),
+            aChoose(Result.B, _quest_current.result_contentB),
+            aChoose(Result.C, _quest_current.result_contentC),
+            aChoose(Result.D, _quest_current.result_contentD),
+            Container(
+              margin: EdgeInsets.all(20.0),
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  SizedBox(width: MediaQuery.of(context).size.width,),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      child: RaisedButton(
+                        padding: EdgeInsets.all(0.0),
+                        splashColor: Colors.lightBlue,
+                        shape: new RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Colors.lightBlue,
+                            width: 1,
+                            style: BorderStyle.solid,
+                          ),
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0),bottomLeft: Radius.circular(30.0)),
+                        ),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width/2.35,
+                          child: Icon(Icons.skip_previous,color: Colors.lightBlue,size: 38,),
+                        ),
+                        onPressed: (){
+                          onClickButtonPrevious();
+                        },
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(2, 0, 0, 0),
+                      child: RaisedButton(
+                        padding: EdgeInsets.all(0.0),
+                        splashColor: Colors.lightBlue,
+                        shape: new RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Colors.lightBlue,
+                            width: 1,
+                            style: BorderStyle.solid,
+                          ),
+                          borderRadius: BorderRadius.only(topRight: Radius.circular(30.0),bottomRight: Radius.circular(30.0)),
+                        ),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width/2.35,
+                          child: Icon(Icons.skip_next,color: Colors.lightBlue,size: 38,),
+                        ),
+                        onPressed: (){
+                          onClickButtonNext();
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Text("NỘP BÀI",style: TextStyle(fontWeight: FontWeight.w500,color: Colors.green),),
+            ),
+            Container(
+              child: RaisedButton(
+                padding: EdgeInsets.all(0.0),
+                splashColor: Colors.lightGreenAccent,
+                shape: new RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Colors.green,
+                    width: 1,
+                    style: BorderStyle.solid,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width/2.35,
+                  child: Icon(Icons.done_all,color: Colors.lightGreenAccent,size: 38,),
+                ),
+                onPressed: (){
+                  onClickButtonSuccess();
+                },
+              ),
+            ),
+            SizedBox(height: 100,)
+          ],
+        ),),
+
+    );
+  }
+  Widget aChoose(Result value, String _content_result) {
+    return Container(
+      margin: EdgeInsets.all(_marginall),
+      padding: EdgeInsets.all(_paddingResult),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+              color: Colors.orange.withAlpha(100),
+              spreadRadius: 0.25,
+              offset: Offset(1.0, 1.0))
+        ],
+        borderRadius: BorderRadius.all(const Radius.circular(_borderRadius)),
+        color: Colors.white,
+      ),
+      child: ListTile(
+        onTap: (){
+          _quest_current.result_choose!=value?_quest_current.result_choose = value: _quest_current.result_choose=Result.nullrs;
+          print(_quest_current.result_choose);
+        },
+        contentPadding: EdgeInsets.fromLTRB(0, 3, 0, 3),
+        leading: Radio(
+          value: value,
+          groupValue: type_prac_or_exam==TYPE_PRAC_OR_EXAM.exam?_quest_current.result_choose:_quest_current.resultSuccess,
+          activeColor: Colors.lightGreenAccent,
+          onChanged: (index){
+            _quest_current.result_choose!=value?_quest_current.result_choose = value: _quest_current.result_choose=Result.nullrs;
+            setState(() {
+
+            });
+          },
+        ),
+        title: Text(_content_result,style: TextStyle(fontSize: 15),),
+      ),
+
+    );
+  }
+  void startTimer(){
+    const oneSec = const Duration(seconds: 1);
+    _timer=Timer.periodic(oneSec,(Timer timer) {
+      if(endTimeExam){
+        timer.cancel();
+      }
+      else{
+        tmpDuration = endDateTime.difference(DateTime.now());
+        secondstime = tmpDuration.inSeconds%60;
+        minutestime = tmpDuration.inMinutes%60;
+        hourtime = tmpDuration.inHours%24;
+        if(hourtime==0 && minutestime==0&&secondstime<1){
+          endTimeExam=true;
+          secondstime=0;
+        }
+        setState(() {
+
+        });
+      }
+    }
+    );
+  }
+  bool _handleScrollNotification(ScrollNotification notification){
+    if (notification.depth == 0) {
+      if (notification is UserScrollNotification) {
+        final UserScrollNotification userScroll = notification;
+        switch (userScroll.direction) {
+          case ScrollDirection.forward:
+            type_prac_or_exam==TYPE_PRAC_OR_EXAM.practice?_hide.forward():_hide.reverse();
+            break;
+          case ScrollDirection.reverse:
+            _hide.reverse();
+            break;
+          case ScrollDirection.idle:
+            break;
+        }
+      }
+    }
+    return false;
+  }
+
   @override
   void dispose() {
     _hide.dispose();
@@ -47,41 +254,38 @@ class SubShowQuest extends State<ShowQuest> with SingleTickerProviderStateMixin{
     // TODO: implement initState
     super.initState();
     endTimeExam=false;
-    endDateTime = DateTime.now().add(Duration(seconds: 7));
     bottom_nav_index=0;
-      _hide = AnimationController(vsync: this,duration: kThemeAnimationDuration);
-      count_quest_list=10;
-  }
-  void startTimer(){
-    const oneSec = const Duration(seconds: 1);
-    _timer=Timer.periodic(oneSec,(Timer timer) {
-      if(endTimeExam){
-        timer.cancel();
-      }
-      else{
-          tmpDuration = endDateTime.difference(DateTime.now());
-          secondstime = tmpDuration.inSeconds%60;
-          minutestime = tmpDuration.inMinutes%60;
-          hourtime = tmpDuration.inHours%24;
-          if(hourtime==0 && minutestime==0&&secondstime<1){
-            endTimeExam=true;
-            secondstime=0;
-          }
-          setState(() {
+    //settime exam
+    endDateTime = DateTime.now().add(Duration(seconds: 3600));
+    _hide = AnimationController(vsync: this,duration: kThemeAnimationDuration);
+      //Khởi tạo gán list_control
+    if(type_prac_or_exam==TYPE_PRAC_OR_EXAM.exam){
+      type_examination==TYPE_EXAMINATION.newnew?
+      endDateTime = DateTime.now().add(Duration(seconds: 30*60+2)):
+      endDateTime = DateTime.now().add(Duration(seconds: 12*60+2));
 
-          });
-      }
+      list_control=list_quest_exam;
+      startTimer();
     }
-    );
   }
-
   @override
   Widget build(BuildContext context) {
-    if(type_prac_or_exam==TYPE_PRAC_OR_EXAM.exam)
-    startTimer();
-
-
     // TODO: implement build
+    if(type_prac_or_exam==TYPE_PRAC_OR_EXAM.exam){
+      switch(bottom_nav_index){
+        case 0:
+          list_control=list_quest_achievement;
+          break;
+        case 1:
+          list_control=list_quest_subject;
+          break;
+        default:
+          list_control =list_quest_all;
+        break;
+      }
+    }//Set litst_quest_control to listquest_prac
+    list_control.length!=0?_quest_current=list_control[_number_quest_now]:{};
+
     return NotificationListener<ScrollNotification>(
           onNotification: _handleScrollNotification,
           child: Scaffold(
@@ -90,11 +294,7 @@ class SubShowQuest extends State<ShowQuest> with SingleTickerProviderStateMixin{
               child: Stack(
                 children: <Widget>[
                   SizedBox(height: 130,),
-                  MyQuestionUI(
-                    onChange: () {
-                      setState(() {});
-                    },
-                  ),
+                  display_quest(),
 
                   Container(
                     width: MediaQuery.of(context).size.width,
@@ -139,9 +339,11 @@ class SubShowQuest extends State<ShowQuest> with SingleTickerProviderStateMixin{
                 selectedFontSize: 15,
                 onTap: (index){
                   bottom_nav_index=index;
+                  _number_quest_now=0;
                   setState(() {
 
                   });
+                  Toast.show(index.toString(), context);
                 },
                 currentIndex: bottom_nav_index,
                 type: BottomNavigationBarType.shifting,
@@ -201,7 +403,11 @@ class SubShowQuest extends State<ShowQuest> with SingleTickerProviderStateMixin{
                             ),
                             child: Text(index.toString(),style: TextStyle(color: Colors.white),),
                             onPressed: (){
-                              number_quest_now=index;
+                              _number_quest_now=index;
+                              Navigator.pop(context,index);
+                              setState(() {
+
+                              });
                               Toast.show(index.toString(), context);
                             },
                           ),
@@ -231,6 +437,9 @@ class SubShowQuest extends State<ShowQuest> with SingleTickerProviderStateMixin{
                     ],
                   );
                 });
+                setState(() {
+
+                });
               },
             ),
             floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -240,25 +449,24 @@ class SubShowQuest extends State<ShowQuest> with SingleTickerProviderStateMixin{
 
   }
 
+  void onClickButtonNext(){
+    _number_quest_now>=list_control.length-1?_number_quest_now=0:_number_quest_now++;
+    setState(() {
 
+    });
+  }
+  void onClickButtonPrevious(){
+    _number_quest_now<=0?_number_quest_now=list_control.length-1:_number_quest_now--;
+    setState(() {
 
-  bool _handleScrollNotification(ScrollNotification notification){
-    if (notification.depth == 0) {
-      if (notification is UserScrollNotification) {
-        final UserScrollNotification userScroll = notification;
-        switch (userScroll.direction) {
-          case ScrollDirection.forward:
-            type_prac_or_exam==TYPE_PRAC_OR_EXAM.practice?_hide.forward():_hide.reverse();
-            break;
-          case ScrollDirection.reverse:
-            _hide.reverse();
-            break;
-          case ScrollDirection.idle:
-            break;
-        }
-      }
+    });
+  }
+  void onClickButtonSuccess(){
+    if(type_prac_or_exam==TYPE_PRAC_OR_EXAM.exam){
+      //Thêm code cho việc nộp bài vào đây
     }
-    return false;
+    else
+      Toast.show("Chức năng dành cho thi thử",context);
   }
 }
 

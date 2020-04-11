@@ -1,21 +1,23 @@
 
-import 'package:testappflutter/package_quest_UI/Question.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:testappflutter/Pages/quest_list.dart';
 
 class Quest {
   String contentQuest,result_contentA,result_contentB,result_contentC,result_contentD;
-  int numberquest,resultSuccess;
-  Quest({this.contentQuest, this.result_contentA, this.result_contentB,
-      this.result_contentC, this.result_contentD, this.numberquest,
-      this.resultSuccess});
+  Result resultSuccess,result_choose;
+  Quest({this.contentQuest="Nội dung câu hỏi", this.result_contentA="Đáp án A", this.result_contentB="Đáp án B",
+      this.result_contentC="Đáp án C", this.result_contentD="Đáp án D",}){
+   if(resultSuccess==null) resultSuccess=Result.A;
+   result_choose=Result.nullrs;
+  }
 
-  void setQuest(numberquest,contentquest,result_contentA,result_contentB,result_contentC,result_contentD,resultSuccess){
-    this.numberquest=numberquest;
+
+  void setQuest(contentquest,result_contentA,result_contentB,result_contentC,result_contentD,resultSuccess){
     this.contentQuest=contentquest;
     this.result_contentA=result_contentA;
     this.result_contentB=result_contentA;
     this.result_contentC=result_contentC;
     this.result_contentD=result_contentD;
-
   }
   int compareResultToInt(Result obj){
     switch(obj){
@@ -42,9 +44,8 @@ class Quest {
     }
   }
   bool checkResult(Result resultChoose){
-    resultSuccess.toInt();
-    if(compareResultToInt(resultChoose)==resultSuccess)
-    return true;
-    else return false;
+        if(resultChoose==this.resultSuccess){
+          return true;
+        }else return false;
   }
 }
