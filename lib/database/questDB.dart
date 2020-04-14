@@ -3,14 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:testappflutter/Pages/quest_list.dart';
 
 class Quest {
+  int id;
   String contentQuest,result_contentA,result_contentB,result_contentC,result_contentD;
   Result resultSuccess,result_choose;
-  Quest({this.contentQuest="Nội dung câu hỏi", this.result_contentA="Đáp án A", this.result_contentB="Đáp án B",
-      this.result_contentC="Đáp án C", this.result_contentD="Đáp án D",}){
-   if(resultSuccess==null) resultSuccess=Result.A;
-   result_choose=Result.nullrs;
-  }
 
+  Quest( this.contentQuest, this.result_contentA, this.result_contentB,
+      this.result_contentC, this.result_contentD, this.resultSuccess,
+  {this.result_choose=Result.nullrs});
 
   void setQuest(contentquest,result_contentA,result_contentB,result_contentC,result_contentD,resultSuccess){
     this.contentQuest=contentquest;
@@ -18,29 +17,60 @@ class Quest {
     this.result_contentB=result_contentA;
     this.result_contentC=result_contentC;
     this.result_contentD=result_contentD;
+
   }
-  int compareResultToInt(Result obj){
+
+  Map<String,dynamic> toMap(){
+    Map<String,dynamic> tmpMap = new Map();
+    tmpMap['contentquest']=this.contentQuest;
+    tmpMap['contentresulta']=this.result_contentA;
+    tmpMap['contentresultb']=this.result_contentB;
+    tmpMap['contentresultc']=this.result_contentC;
+    tmpMap['contentresultd']=this.result_contentD;
+    tmpMap['resultsuccess']=this.result_contentA;
+    tmpMap['id']=this.id;
+  }
+  getObjQuestFromMap( Map<String,dynamic> tmpMap){
+    this.contentQuest = tmpMap['contentquest'];
+    this.result_contentA= tmpMap['contentresulta'];
+    this.result_contentB= tmpMap['contentresultb'];
+    this.result_contentC= tmpMap['contentresultc'];
+    this.result_contentD= tmpMap['contentresultd'];
+    this.resultSuccess = compareStringtoResult(tmpMap['resultsuccess']);
+    this.id = tmpMap['id'];
+  }
+
+  Result compareStringtoResult(String resultCharater){
+    if(resultCharater=='a'||resultCharater=='A') return Result.A;
+    if(resultCharater=='b'||resultCharater=='B') return Result.B;
+    if(resultCharater=='c'||resultCharater=='C') return Result.C;
+    if(resultCharater=='d'||resultCharater=='D') return Result.D;
+    return Result.nullrs;
+
+  }
+
+  String compareResultToString(Result obj){
     switch(obj){
 
       case Result.A:
         // TODO: Handle this case.
-      return 1;
+      return 'a';
         break;
       case Result.B:
         // TODO: Handle this case.
-        return 2;
+        return 'b';
 
         break;
       case Result.C:
         // TODO: Handle this case.
-        return 3;
+        return 'c';
         break;
       case Result.D:
         // TODO: Handle this case.
-        return 4;
+        return 'd';
         break;
       case Result.nullrs:
-        return -1; break;
+        return null; break;
     }
   }
   bool checkResult(Result resultChoose){
@@ -48,4 +78,7 @@ class Quest {
           return true;
         }else return false;
   }
+}
+class Achievement{
+
 }

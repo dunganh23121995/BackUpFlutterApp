@@ -47,7 +47,7 @@ class SubShowQuest extends State<ShowQuest> with SingleTickerProviderStateMixin{
     list_quest_all= new List();
     list_quest_subject= new List();
     list_quest_achievement= new List();
-    _quest_current=new Quest();
+//    _quest_current=new Quest();
 
   }
   Widget display_quest(){

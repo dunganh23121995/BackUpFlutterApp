@@ -1,8 +1,10 @@
-import 'dart:async';
-
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'package:flutter/services.dart' show rootBundle;
 
 class ClockCountDown extends StatefulWidget{
   @override
@@ -12,49 +14,48 @@ class ClockCountDown extends StatefulWidget{
   }
 }
 class _CLockCountDown extends State<ClockCountDown>{
-  Timer _timer;
-  int hourtime,minutestime,secondstime,total_time;
-  DateTime endtime;
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
+  List<String> list;
+  bool start;
+  String file;
   @override
   void initState() {
-    // TODO: implement initState
-    endtime=DateTime.now().add(Duration(minutes: 90));
-    total_time = 2;
-    super.initState();
+    start=false;
+
+
   }
 
-  void startTimer(){
-
-    const oneSec = const Duration(seconds: 1);
-    Timer.periodic(oneSec,(Timer timer) {
-          hourtime= endtime.hour - DateTime.now().hour;
-          minutestime= endtime.minute - DateTime.now().minute;
-          secondstime= endtime.second - DateTime.now().second;
-          if(total_time<1){
-            timer.cancel();
-          }
-          else{
-            total_time=hourtime*3600+minutestime*60+secondstime;
-          }
-          setState(() {
-
-          });
-        }
-
-    );
-  }
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     // TODO: implement build
-    startTimer();
-    return Container(
-      child: total_time<1?Text("Kết thúc",style: GoogleFonts.roboto(color: Colors.red)):Text("Còn lại: ${total_time} phút",style: GoogleFonts.roboto(color: Colors.red),),
+    if(list==null){
+      list=new List();
+      String path = "assets/allsourcedata/test.txt";
+      loadDataToPath(path).asStream().forEach((value){
+        list.add(value);
+        start=true;
+        setState(() {
+
+        });
+      });
+
+    }
+
+
+    return Scaffold(
+      body: Center(
+        child: start==true?Text(list[0].toString()):("Chua hoan thanh"),
+      ),
     );
   }
+
+Future<String> loadDataToPath(String path) async{
+    return await rootBundle.loadString(path);
+}
+
+
+
+
+
+
+
 }

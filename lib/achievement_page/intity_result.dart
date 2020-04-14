@@ -4,7 +4,7 @@ import 'package:testappflutter/Practice/group_field.dart';
 
 
 class Achievement{
-  DateTime timeend_exam=DateTime.now();
+  DateTime timeend_exam;
   String title_specialize;
   String type_exammination;
   int result_success;
