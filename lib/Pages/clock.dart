@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:testappflutter/database/my_sqlite.dart';
+import 'package:testappflutter/database/questDB.dart';
 
 class ClockCountDown extends StatefulWidget{
   @override
@@ -14,36 +16,45 @@ class ClockCountDown extends StatefulWidget{
   }
 }
 class _CLockCountDown extends State<ClockCountDown>{
-  List<String> list;
-  bool start;
-  String file;
+static bool statusload;
+List<Quest> listquest;
+MyDatabaseHelp _myDatabaseHelp;
+
+void _getListQuest() async{
+  if(listquest==null) listquest=new List();
+  if(_myDatabaseHelp==null) _myDatabaseHelp = new MyDatabaseHelp();
+  List<Map<String,dynamic>> list= await _myDatabaseHelp.getListQuestAll();
+  if(list!=null)
+  list.forEach((f){
+    Quest tmp = new Quest();
+    tmp.getObjQuestFromMap(f);
+    listquest.add(tmp);
+    setState(() {
+      statusload=true;
+    });
+  });
+
+}
+
+
   @override
   void initState() {
-    start=false;
-
-
+ statusload=false;
+ _getListQuest();
   }
 
   @override
   Widget build(BuildContext context){
     // TODO: implement build
-    if(list==null){
-      list=new List();
-      String path = "assets/allsourcedata/test.txt";
-      loadDataToPath(path).asStream().forEach((value){
-        list.add(value);
-        start=true;
-        setState(() {
-
-        });
-      });
-
-    }
-
 
     return Scaffold(
       body: Center(
-        child: start==true?Text(list[0].toString()):("Chua hoan thanh"),
+        child: statusload!=true?Text("Đợi xíu nào!"):
+            ListView.builder(itemBuilder: (context,index){
+             return Text(listquest[index].contentQuest);
+            },
+              itemCount: listquest.length,
+            ),
       ),
     );
   }

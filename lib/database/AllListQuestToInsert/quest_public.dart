@@ -1,4 +1,5 @@
-List<String> list_quest_All = [" Các hoạt động đầu tư xây dựng chịu sự điều chỉnh của pháp luật nào dưới đây?",
+List<String> list_quest_All =
+  [" Các hoạt động đầu tư xây dựng chịu sự điều chỉnh của pháp luật nào dưới đây?",
   "a. Pháp luật về xây dựng",
   "b. Pháp luật về xây dựng và pháp luật về đầu tư công",
   "c. Pháp luật về xây dựng và pháp luật về đấu thầu",
