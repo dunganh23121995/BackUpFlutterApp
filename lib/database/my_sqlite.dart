@@ -92,7 +92,7 @@ class MyDatabaseHelp{
         result_contentD: list_field_ksxd[i + 4],
         resultSuccess: list_field_ksxd[i + 5],
       );
-      await db.insert(_tblAll, quest.toMap());
+      await db.insert(_getNameTableField(TYPEPRACTICE.ks_diahinh), quest.toMap());
     }
 
     //Insert vào các table chuyên môn riêng
